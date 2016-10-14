@@ -1,61 +1,149 @@
-package pack;
+package pack;/*Пакет (package) — это некий контейнер, который используется для того, чтобы изолировать имена классов. 
+pack - название пакета */
+
 public class Calc {
 	static double double_100km, double_distance,double_price_1l, double_probeg_do, double_probeg_next, double_volume,
 	double_fuel,double_pass_dist, double_sred_100km, double_n_l, double_price,double_dist;
-	public static void Dan_dist() {
-		if (Distance.CB_100km==0){
-			double_100km = Double.parseDouble(Distance.TextField_100km.getText());
+	/* Переменные типа double - с плавающей точкой. служат для представления чисел, имеющих дробную часть */
+	/*static позволяет определять статические методы. Это такие методы, которые являются общими для класса, а не для
+	отдельного объекта этого класса. Также они могут работать лишь со статическими полями класса.К статическим методам 
+	и переменным можно обращаться через имя класса.*/
+	
+	public static void Dan_dist() {/*Класс Calc_distance100km, который доступен для любого файла из пакета pack */
+		/*  Модификатор доступа public означает, что метод виден и доступен любому классу.
+	    static означает, что не нужно создавать экземпляр(копию) объекта Rasch в памяти, чтобы использовать этот метод.
+	    void означает, что метод RacZarDanPer() не возвращает данных в программу, которая его вызвала.
+	    Метод RacZarDanPer с пустыми скобками, это означает, что метод не имеет аргументов(параметров)
+	    */
+		if (Distance.CB_100km==0){ //если флажок Рассчитать автоматически на первой вкладке программы был выключен
+			double_100km = Double.parseDouble(Distance.TextField_100km.getText());/* В переменную double_100km 
+			записываются данные введеные пользователем в текстовое поле TextField_100km которое расположено в файле Distance.
+			Преобразование данных в тип integer. */
 		}
 		double_distance = Double.parseDouble(Distance.TextField_distance.getText());
-		double_price_1l = Double.parseDouble(Distance.TextField_price.getText());
+		double_price_1l = Double.parseDouble(Distance.TextField_price.getText());	/* В переменную  
+		записываются данные введеные пользователем в текстовое поле которое расположено в файле Distance.
+		Преобразование данных в тип integer. */
 	}
+	
+	
 	public static void Dan_dist_100km() {
-		if (Distance100km.CB_how_1==1){
+		/*  Модификатор доступа public означает, что метод виден и доступен любому классу.
+	    static означает, что не нужно создавать экземпляр(копию) объекта Rasch в памяти, чтобы использовать этот метод.
+	    void означает, что метод не возвращает данных в программу, которая его вызвала.
+	    Метод с пустыми скобками, это означает, что метод не имеет аргументов(параметров)   */
+		if (Distance100km.CB_how_1==1){ // если выбран первый способ на вкладке На 100 км
 		double_probeg_do = Double.parseDouble(Distance100km.TextField_probeg_do.getText());
 		double_probeg_next = Double.parseDouble(Distance100km.TextField_probeg_next.getText());
-		double_volume = Double.parseDouble(Distance100km.TextField_volume.getText());
-		} else {
+		double_volume = Double.parseDouble(Distance100km.TextField_volume.getText());  /* В переменную  
+		записываются данные введеные пользователем в текстовое поле которое расположено в файле Distance.
+		Преобразование данных в тип integer. */
+		
+		} else { // если выбран второй способ на вкладке На 100 км
 		double_fuel = Double.parseDouble(Distance100km.TextField_fuel.getText());
-		double_pass_dist = Double.parseDouble(Distance100km.TextField_pass_dist.getText());  
+		double_pass_dist = Double.parseDouble(Distance100km.TextField_pass_dist.getText());  /* В переменную  
+		записываются данные введеные пользователем в текстовое поле которое расположено в файле Distance.
+		Преобразование данных в тип integer. */
 		}
 	}
-	public static void Calcul_distance() {
-	    if (Distance.CB_100km==0){ 
+	
+	
+	public static void Calcul_distance() {/*  Модификатор доступа public означает, что метод виден и доступен любому классу.
+	    static означает, что не нужно создавать экземпляр(копию) объекта Rasch в памяти, чтобы использовать этот метод.
+	    void означает, что метод не возвращает данных в программу, которая его вызвала.
+	    Метод с пустыми скобками, это означает, что метод не имеет аргументов(параметров)   */
+		
+		//Расчет среднего расхода топлива на 100 км
+	    if (Distance.CB_100km==0){ /*Если на вкладке На определенное расстояние не установлен флажок, то средний расход
+	    	топлива будет равен значению которое ввел пользователь в текстовое поле Расход топлива на 100 км. Если флажок 
+	    	был установлен, то расход на 100 км рассчитывается */
 	    	double_sred_100km=double_100km;
 	    } else {
-	    	double_sred_100km=Calcul_100km();
+	    	double_sred_100km=Calcul_100km();/*функция рассчитывает и возвращает значение среднего расхода топлива. 
+	    	функция Calcul_100km находится в этом файле	*/
 	    }
+	    
+		//Расчет требуемого топлива
 	    double_n_l=double_distance * (double_sred_100km/100);
+	    /*для расчета требуемого количества топлива необходимо узнать сколько топлива расходуется на 1 км, и 
+	     умножить на расстояние. */
+	    
+	    //Расчет цены
 	    double_price=double_price_1l * double_n_l;
+	    /*Для расчета цены, необходимо умножить требуемое количество топлива на цену за 1 л топлива */
+	    
+	    
+	    //форматированный вывод
 	    String String_sred_100km_1 = String.format("%.2f", double_sred_100km);
 	    String String_distance = String.format("%.2f", double_distance);
 	    String String_n_l = String.format("%.2f", double_n_l);
 	    String String_price = String.format("%.2f", double_price);
+	    /* String - указываем что переменная будет иметь строковый тип,
+	     * String_sred_100km_1 - название новой переменной,
+	     * String.format - преобразование переменной в строкой тип,
+	     	%.2f - указываем что переменная будет отображать только 2 цифры после запятой,
+	     	double_sred_100km - переменная типа double, которую надо преобразовать в строковый тип
+	     	 */
+
 	    Calc_distance.Label_100km.setText(String_sred_100km_1);
 	    Calc_distance.Label_n_km.setText(String_distance);
 	    Calc_distance.Label_n_l.setText(String_n_l);
 	    Calc_distance.Label_price.setText(String_price);
+	    /* Записываем строковые переменные в текстовые поля Label_100km.., которые расположены в файле Calc_distance */
+	    
 	}
-	public static void Calcul_distance_100km() {
-		double_sred_100km = Calcul_100km(); 
-		if (Distance100km.CB_how_1==1){
+	
+	
+	public static void Calcul_distance_100km() {/*  Модификатор доступа public означает, что метод виден и доступен любому классу.
+	    static означает, что не нужно создавать экземпляр(копию) объекта Rasch в памяти, чтобы использовать этот метод.
+	    void означает, что метод не возвращает данных в программу, которая его вызвала.
+	    Метод с пустыми скобками, это означает, что метод не имеет аргументов(параметров)   */
+		double_sred_100km = Calcul_100km(); //фукнция которая рассчитает средний расход топлива на 100 км и запишет рез-т в переменную
+		if (Distance100km.CB_how_1==1){ /*Если на вкладке На 100 км выбран первый способ (CB_how_1==1), то расстояние равно 
+		последний пробег минус зафиксированный пробег. Если выбран второй способ, то расстояние равно значению которое ввел
+		 пользователь в текстовое поле Преодоленное расстояние */
 			double_dist=double_probeg_next-double_probeg_do;
-		} else {
+		} else {//если выбран второй способ
 			double_dist=double_pass_dist;
 		}
+		
+	    //форматированный вывод
 	    String string_dist = String.format("%.2f", double_dist);
 	    String string_sred_100km = String.format("%.2f", double_sred_100km);
 	    String string_volume = String.format("%.2f", double_volume);
+	    /* String - указываем что переменная будет иметь строковый тип,
+	     * string_dist - название новой переменной,
+	     * String.format - преобразование переменной в строкой тип,
+	     	%.2f - указываем что переменная будет отображать только 2 цифры после запятой,
+	     	double_dist - переменная типа double, которую надо преобразовать в строковый тип
+	     	 */
+	    
 	    Calc_distance100km.Label_dist.setText(string_dist);
 	    Calc_distance100km.Label_100km.setText(string_sred_100km);
 	    Calc_distance100km.Label_fuel.setText(string_volume);
+	    /* Записываем строковые переменные в текстовые поля Label_dist.., которые расположены в файле Calc_distance100km */
+
 	}
-	private static double Calcul_100km(){
-		if (Distance100km.CB_how_1==1){
+	
+	
+	private static double Calcul_100km(){/*  Модификатор доступа private означает, что метод доступен только этому классу
+	    static означает, что не нужно создавать экземпляр(копию) объекта Rasch в памяти, чтобы использовать этот метод.
+	    double означает, что необходимо вернуть число типа double (число, имеющее дробную часть).
+	    Метод с пустыми скобками, это означает, что метод не имеет аргументов(параметров)   */
+		if (Distance100km.CB_how_1==1){ //Если на вкладке На 100 км был выбран первый способ
 			double_sred_100km=double_volume/(double_probeg_next-double_probeg_do)*100;
-		} else {
+			/* Для того чтобы рассчитать средний расход топлива на 100 км нужно - объем бака разделить на пройденное 
+			 * расстояние, которое рассчитывается как последний пробег минус зафиксированный пробег. После этого необходимо 
+			 * умножить на 100.*/
+			
+		} else {//Если на вкладке На 100 км был выбран второй способ
 			double_sred_100km=double_fuel/double_pass_dist*100;
+			/*Для того чтобы рассчитать средний расход топливо на 100 км нужно количество израсходованного топлива разделить
+			 * на преодоленное расстояние. После этого умножим на 100. */
 		}		
-		return double_sred_100km;
+		return double_sred_100km; // функция должна вернуть число типа double, для этого используется return.
 	}
-	}
+	
+
+	
+}
